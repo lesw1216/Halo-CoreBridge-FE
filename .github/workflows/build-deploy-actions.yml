@@ -64,8 +64,8 @@ jobs:
 
             echo "Success SSH connection"
 
-            echo "move to /home/core_bridge"
-            cd /home/core_bridge
+            echo "move to /home/unbuntu/workspace/core-bridge"
+            cd /home/ubuntu/workspace/core-bridge
 
             echo "Pulling Docker Image from DockerHub, Only Frontend"
             sudo docker compose pull frontend
