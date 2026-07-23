@@ -16,7 +16,7 @@ export interface Job {
   screening: number
   interview1: number
   interview2: number
-  position: String
+  position: string
   final: number
   isUrgent?: boolean
   sharedWith?: number[]

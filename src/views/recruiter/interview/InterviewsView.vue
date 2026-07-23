@@ -33,7 +33,7 @@ const getStatusLabel = (status: string) => {
   return labels[status as keyof typeof labels]
 }
 
-const getInitail = (name: String) => {
+const getInitail = (name: string) => {
   return name.charAt(0).toUpperCase()
 }
 

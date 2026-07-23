@@ -17,7 +17,7 @@ const emit = defineEmits<{
 }>()
 
 const props = defineProps<{
-  openModal: Boolean
+  openModal: boolean
   interviewModalData: InterviewModalData
 }>()
 
