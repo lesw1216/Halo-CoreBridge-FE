@@ -86,9 +86,10 @@ const handleDemoLogin = async (account: DemoAccount) => {
             <div class="bg-white rounded-2xl shadow-xl p-8">
                 <!-- 헤더 -->
                 <div class="text-center mb-8">
-                    <div class="inline-flex items-center justify-center w-16 h-16 bg-slate-600 rounded-full mb-4">
+                    <RouterLink to="/" title="홈으로"
+                        class="inline-flex items-center justify-center w-16 h-16 bg-slate-600 rounded-full mb-4 hover:bg-slate-700 transition cursor-pointer">
                         <UserRound class="w-8 h-8 text-white" />
-                    </div>
+                    </RouterLink>
                     <h1 class="text-3xl font-bold text-gray-900 mb-2">로그인</h1>
                 </div>
 
@@ -140,6 +141,10 @@ const handleDemoLogin = async (account: DemoAccount) => {
                 <!-- 로그인 링크 -->
                 <div class="mt-6 text-center">
                     <p class="text-sm text-gray-600">
+                        <RouterLink to="/">
+                            <a class="text-slate-600 hover:text-slate-700 font-semibold">홈으로</a>
+                        </RouterLink>
+                        |
                         <RouterLink :to="{ name: 'signup' }">
                             <a class="text-slate-600 hover:text-slate-700 font-semibold">회원가입</a>
                         </RouterLink>
