@@ -29,7 +29,7 @@ const isOpen = computed(() => {
   return props.openModal
 })
 
-const close: Ref<Boolean> = ref(isOpen)
+const close: Ref<boolean> = ref(isOpen)
 
 const handClose = () => {
   close.value = false

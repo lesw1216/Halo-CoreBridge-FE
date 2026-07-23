@@ -135,7 +135,7 @@ export interface CoverLetterTitleEdit {
  */
 
 export interface ProcessSummary {
-  stageName: String
+  stageName: string
   count: number
   orderIndex: number
 }

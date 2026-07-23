@@ -3,6 +3,8 @@ import { ref, reactive } from 'vue'
 import userAPI from '@/api/user'
 import { UserRound, Mail, LockKeyhole } from 'lucide-vue-next'
 import type { UserLogin, UserLoginError } from '@/types/user/UserLogin'
+import type { DemoAccount } from '@/types/common/DemoAccount'
+import { DEMO_ACCOUNTS, DEMO_PASSWORD } from '@/constants/demoAccounts'
 import { useUserStore } from '@/store/useUserStore.ts'
 
 const userStore = useUserStore()
@@ -65,6 +67,16 @@ const handleSubmit = async () => {
         }
     }
 }
+
+/**
+ * 데모 계정 클릭 시 폼에 값을 채우고 기존 로그인 흐름을 그대로 태운다
+ */
+const handleDemoLogin = async (account: DemoAccount) => {
+    formData.email = account.email
+    formData.password = DEMO_PASSWORD
+
+    await handleSubmit()
+}
 </script>
 
 <template>
@@ -74,9 +86,10 @@ const handleSubmit = async () => {
             <div class="bg-white rounded-2xl shadow-xl p-8">
                 <!-- 헤더 -->
                 <div class="text-center mb-8">
-                    <div class="inline-flex items-center justify-center w-16 h-16 bg-slate-600 rounded-full mb-4">
+                    <RouterLink to="/" title="홈으로"
+                        class="inline-flex items-center justify-center w-16 h-16 bg-slate-600 rounded-full mb-4 hover:bg-slate-700 transition cursor-pointer">
                         <UserRound class="w-8 h-8 text-white" />
-                    </div>
+                    </RouterLink>
                     <h1 class="text-3xl font-bold text-gray-900 mb-2">로그인</h1>
                 </div>
 
@@ -128,6 +141,10 @@ const handleSubmit = async () => {
                 <!-- 로그인 링크 -->
                 <div class="mt-6 text-center">
                     <p class="text-sm text-gray-600">
+                        <RouterLink to="/">
+                            <a class="text-slate-600 hover:text-slate-700 font-semibold">홈으로</a>
+                        </RouterLink>
+                        |
                         <RouterLink :to="{ name: 'signup' }">
                             <a class="text-slate-600 hover:text-slate-700 font-semibold">회원가입</a>
                         </RouterLink>
@@ -140,6 +157,29 @@ const handleSubmit = async () => {
                             <a class="text-slate-600 hover:text-slate-700 font-semibold">비밀번호 찾기</a>
                         </RouterLink>
                     </p>
+                </div>
+
+                <!-- 데모 계정 -->
+                <div class="mt-6">
+                    <div class="relative mb-4">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-200"></div>
+                        </div>
+                        <div class="relative flex justify-center">
+                            <span class="bg-white px-3 text-sm text-gray-500">데모 계정으로 체험하기</span>
+                        </div>
+                    </div>
+
+                    <p class="mb-3 text-center text-xs text-gray-400">공통 비밀번호: {{ DEMO_PASSWORD }}</p>
+
+                    <div class="space-y-2">
+                        <button v-for="account in DEMO_ACCOUNTS" :key="account.email" type="button"
+                            @click="handleDemoLogin(account)"
+                            class="w-full flex items-center justify-between border border-gray-200 rounded-lg px-4 py-3 hover:border-slate-400 hover:bg-slate-50 transition cursor-pointer">
+                            <span class="text-sm font-semibold text-gray-800">{{ account.roleLabel }}</span>
+                            <span class="text-xs text-gray-500">{{ account.email }}</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
