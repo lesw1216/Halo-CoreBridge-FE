@@ -4,7 +4,7 @@ import userAPI from '@/api/user'
 import { UserRound, Mail, LockKeyhole } from 'lucide-vue-next'
 import type { UserLogin, UserLoginError } from '@/types/user/UserLogin'
 import type { DemoAccount } from '@/types/common/DemoAccount'
-import { DEMO_ACCOUNTS } from '@/constants/demoAccounts'
+import { DEMO_ACCOUNTS, DEMO_PASSWORD } from '@/constants/demoAccounts'
 import { useUserStore } from '@/store/useUserStore.ts'
 
 const userStore = useUserStore()
@@ -73,7 +73,7 @@ const handleSubmit = async () => {
  */
 const handleDemoLogin = async (account: DemoAccount) => {
     formData.email = account.email
-    formData.password = account.password
+    formData.password = DEMO_PASSWORD
 
     await handleSubmit()
 }
@@ -137,28 +137,6 @@ const handleDemoLogin = async (account: DemoAccount) => {
                     </button>
                 </form>
 
-                <!-- 데모 계정 -->
-                <div class="mt-8">
-                    <div class="relative mb-4">
-                        <div class="absolute inset-0 flex items-center">
-                            <div class="w-full border-t border-gray-200"></div>
-                        </div>
-                        <div class="relative flex justify-center">
-                            <span class="bg-white px-3 text-sm text-gray-500">데모 계정으로 체험하기</span>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-2">
-                        <button v-for="account in DEMO_ACCOUNTS" :key="account.email" type="button"
-                            @click="handleDemoLogin(account)"
-                            class="text-left border border-gray-200 rounded-lg p-3 hover:border-slate-400 hover:bg-slate-50 transition cursor-pointer">
-                            <p class="text-sm font-semibold text-gray-800">{{ account.roleLabel }}</p>
-                            <p class="mt-1 text-xs text-gray-500 break-all">{{ account.email }}</p>
-                            <p class="text-xs text-gray-400">{{ account.password }}</p>
-                        </button>
-                    </div>
-                </div>
-
                 <!-- 로그인 링크 -->
                 <div class="mt-6 text-center">
                     <p class="text-sm text-gray-600">
@@ -174,6 +152,29 @@ const handleDemoLogin = async (account: DemoAccount) => {
                             <a class="text-slate-600 hover:text-slate-700 font-semibold">비밀번호 찾기</a>
                         </RouterLink>
                     </p>
+                </div>
+
+                <!-- 데모 계정 -->
+                <div class="mt-6">
+                    <div class="relative mb-4">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-200"></div>
+                        </div>
+                        <div class="relative flex justify-center">
+                            <span class="bg-white px-3 text-sm text-gray-500">데모 계정으로 체험하기</span>
+                        </div>
+                    </div>
+
+                    <p class="mb-3 text-center text-xs text-gray-400">공통 비밀번호: {{ DEMO_PASSWORD }}</p>
+
+                    <div class="space-y-2">
+                        <button v-for="account in DEMO_ACCOUNTS" :key="account.email" type="button"
+                            @click="handleDemoLogin(account)"
+                            class="w-full flex items-center justify-between border border-gray-200 rounded-lg px-4 py-3 hover:border-slate-400 hover:bg-slate-50 transition cursor-pointer">
+                            <span class="text-sm font-semibold text-gray-800">{{ account.roleLabel }}</span>
+                            <span class="text-xs text-gray-500">{{ account.email }}</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
